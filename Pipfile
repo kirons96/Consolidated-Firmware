@@ -8,6 +8,8 @@ pylint = "*"
 
 [packages]
 cantools = "~=32.20.0"
+pyqt5 = "*"
+termcolor = "*"
 
 [requires]
 python_version = "3"
