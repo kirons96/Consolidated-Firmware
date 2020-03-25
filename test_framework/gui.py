@@ -1,5 +1,5 @@
 import sys
-from PyQt5.QtWidgets import QApplication, QMainWindow, QLineEdit, QLabel
+from PyQt5.QtWidgets import QApplication, QMainWindow, QLineEdit, QLabel, QComboBox
 
 class App(QMainWindow):
 
@@ -10,7 +10,12 @@ class App(QMainWindow):
     def init_UI(self):
         self.setWindowTitle('TL85 Capstone')
 
-        # TODO: add dropdown to select JSON file
+        self.json_drop_down = QComboBox(self)
+        self.json_drop_down.move(20, 50)
+        self.json_drop_down.addItem('abc')
+        self.json_drop_down.addItem('def')
+        self.json_drop_down.addItem('ghi')
+        self.json_drop_down.addItem('jkl')
 
         self.label_start_value = QLabel(self)
         self.label_start_value.setText('Start Value')
@@ -44,18 +49,19 @@ class App(QMainWindow):
         self.label_step_value.setText('0')
         self.label_step_value.move(200, 220)
 
-        # TODO: display and highlight Fault above threshold | Fault below threshold
-        # TODO: display and highlight Fault active high | Fault active low
-
         self.label_step_value = QLabel(self)
         self.label_step_value.setText('Test description:')
         self.label_step_value.move(20, 260)
-
-        # TODO: description gets cut off - can you make this into a multi-line textbox
+        self.label_step_value.adjustSize()
 
         self.label_step_value = QLabel(self)
-        self.label_step_value.setText('lkjashdflkjhasdflkjhasdfkljhasdlkfjhaskldhjflkjhasdflkjhsadkljfhsadklfhjsdalkjhfklhjasdlkfjhfd')
+        self.label_step_value.setText('the quick brown fox jumps over the lazy dog')
         self.label_step_value.move(200, 260)
+        self.label_step_value.setWordWrap(True)
+        self.label_step_value.adjustSize()
+
+        # TODO: display and highlight Fault above threshold | Fault below threshold
+        # TODO: display and highlight Fault active high | Fault active low
 
         self.showMaximized()
 
