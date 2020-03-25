@@ -10,12 +10,12 @@ class App(QMainWindow):
     def init_UI(self):
         self.setWindowTitle('TL85 Capstone')
 
-        self.json_drop_down = QComboBox(self)
-        self.json_drop_down.move(20, 50)
-        self.json_drop_down.addItem('abc')
-        self.json_drop_down.addItem('def')
-        self.json_drop_down.addItem('ghi')
-        self.json_drop_down.addItem('jkl')
+        self.dropdown_json = QComboBox(self)
+        self.dropdown_json.move(20, 50)
+        self.dropdown_json.addItem('abc')
+        self.dropdown_json.addItem('def')
+        self.dropdown_json.addItem('ghi')
+        self.dropdown_json.addItem('jkl')
 
         self.label_start_value = QLabel(self)
         self.label_start_value.setText('Start Value')
@@ -41,27 +41,46 @@ class App(QMainWindow):
         self.textbox_step_value.resize(100,30)
         self.textbox_step_value.move(200, 180)
 
-        self.label_step_value = QLabel(self)
-        self.label_step_value.setText('Threshold')
-        self.label_step_value.move(20, 220)
+        self.label_threshold  = QLabel(self)
+        self.label_threshold.setText('Threshold')
+        self.label_threshold.move(20, 220)
 
-        self.label_step_value = QLabel(self)
-        self.label_step_value.setText('0')
-        self.label_step_value.move(200, 220)
+        self.label_threshold_value = QLabel(self)
+        self.label_threshold_value.setText('0')
+        self.label_threshold_value.move(200, 220)
 
-        self.label_step_value = QLabel(self)
-        self.label_step_value.setText('Test description:')
-        self.label_step_value.move(20, 260)
-        self.label_step_value.adjustSize()
+        self.label_test_description = QLabel(self)
+        self.label_test_description.setText('Test description:')
+        self.label_test_description.move(20, 260)
+        self.label_test_description.adjustSize()
 
-        self.label_step_value = QLabel(self)
-        self.label_step_value.setText('the quick brown fox jumps over the lazy dog')
-        self.label_step_value.move(200, 260)
-        self.label_step_value.setWordWrap(True)
-        self.label_step_value.adjustSize()
+        self.label_test_description_value = QLabel(self)
+        self.label_test_description_value.setText('the quick brown fox jumps over the lazy dog')
+        self.label_test_description_value.move(200, 260)
+        self.label_test_description_value.setWordWrap(True)
+        self.label_test_description_value.adjustSize()
 
-        # TODO: display and highlight Fault above threshold | Fault below threshold
-        # TODO: display and highlight Fault active high | Fault active low
+        self.label_fault_active_state = QLabel(self)
+        self.label_fault_active_state.setText('Fault active state')
+        self.label_fault_active_state.move(20, 300)
+        self.label_fault_active_state.adjustSize()
+
+        self.label_fault_active_state_value = QLabel(self)
+        self.label_fault_active_state_value.setText('HIGH')
+        self.label_fault_active_state_value.move(200, 300)
+        self.label_fault_active_state_value.adjustSize()
+
+        self.label_fault_threshold = QLabel(self)
+        self.label_fault_threshold.setText('Fault occurs _______ threshold')
+        self.label_fault_threshold.move(20, 340)
+        self.label_fault_threshold.adjustSize()
+
+        self.label_fault_threshold_value = QLabel(self)
+        self.label_fault_threshold_value.setText('ABOVE')
+        self.label_fault_threshold_value.move(105, 340)
+        self.label_fault_threshold_value.adjustSize()
+
+        # TODO: do some rudimentary real-time graphing - see Wes' implementation?
 
         self.showMaximized()
 
