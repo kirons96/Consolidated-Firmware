@@ -1,7 +1,53 @@
 import sys
-from PyQt5.QtWidgets import QApplication, QMainWindow, QLineEdit, QLabel, QComboBox
+import random
+import matplotlib
 
-class App(QMainWindow):
+from matplotlib.backends.backend_qt5agg import NavigationToolbar2QT as NavigationToolbar
+from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
+
+from matplotlib.figure import Figure
+
+from PyQt5.QtWidgets import QApplication, QMainWindow, QLineEdit, QLabel, QComboBox, QVBoxLayout, QWidget, QSizePolicy
+from PyQt5.QtCore import QTimer
+
+class MplCanvas(FigureCanvas):
+
+    def __init__(self, parent=None, width=5, height=4, dpi=100):
+        fig = Figure(figsize=(width, height), dpi=dpi)
+        self.axes = fig.add_subplot(111)
+        super(MplCanvas, self).__init__(fig)
+
+class Graphing(QMainWindow):
+
+    def __init__(self):
+        super().__init__()
+        self.init_UI()
+        self.timer = QTimer()
+        self.timer.setInterval(100)
+        self.timer.timeout.connect(self.update_plot)
+        self.timer.start()
+
+    def init_UI(self):
+
+        self.canvas = MplCanvas(self, width=5, height=4, dpi=100)
+        self.setCentralWidget(self.canvas)
+
+        n_data = 50
+        self.xdata = list(range(n_data))
+        self.ydata = [random.randint(0, 10) for i in range(n_data)]
+        self.update_plot()
+
+        self.showMaximized()
+
+    def update_plot(self):
+        # Drop off the first y element, append a new one.
+        self.ydata = self.ydata[1:] + [random.randint(0, 10)]
+        self.canvas.axes.cla()  # Clear the canvas.
+        self.canvas.axes.plot(self.xdata, self.ydata, 'r')
+        # Trigger the canvas to update and redraw.
+        self.canvas.draw()
+
+class Main(QMainWindow):
 
     def __init__(self):
         super().__init__()
@@ -80,11 +126,10 @@ class App(QMainWindow):
         self.label_fault_threshold_value.move(105, 340)
         self.label_fault_threshold_value.adjustSize()
 
-        # TODO: do some rudimentary real-time graphing - see Wes' implementation?
-
         self.showMaximized()
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    ex = App()
+    first = Main()
+    second = Graphing()
     sys.exit(app.exec_())
