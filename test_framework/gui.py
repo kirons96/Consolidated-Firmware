@@ -1,5 +1,5 @@
 import sys
-import random
+import math
 import matplotlib
 
 from matplotlib.backends.backend_qt5agg import NavigationToolbar2QT as NavigationToolbar
@@ -32,19 +32,21 @@ class Graphing(QMainWindow):
         self.canvas = MplCanvas(self, width=5, height=4, dpi=100)
         self.setCentralWidget(self.canvas)
 
-        n_data = 50
-        self.xdata = list(range(n_data))
-        self.ydata = [random.randint(0, 10) for i in range(n_data)]
+        self.count = 0
+        self.ydata = [math.sin(self.count)]
+        self.xdata = list(range(0, len(self.ydata)))
+
         self.update_plot()
 
         self.showMaximized()
 
     def update_plot(self):
-        # Drop off the first y element, append a new one.
-        self.ydata = self.ydata[1:] + [random.randint(0, 10)]
-        self.canvas.axes.cla()  # Clear the canvas.
+        self.count += 0.15
+        self.ydata.append(math.sin(self.count))
+        self.xdata = list(range(0, len(self.ydata)))
+
+        self.canvas.axes.cla()
         self.canvas.axes.plot(self.xdata, self.ydata, 'r')
-        # Trigger the canvas to update and redraw.
         self.canvas.draw()
 
 class Main(QMainWindow):
